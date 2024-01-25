@@ -1,0 +1,60 @@
+Constructor:
+
+Syntax:
+class Boy
+{
+public:
+    Boy() {
+
+    }
+};
+
+- Special member function of a class used to initialize the state of an object
+- Same name as of class thus is implicitly invoked auto. while object creation
+- Also, it has no return type -> thus no return statement
+- Note: A Constructor can never be static member function -> it has to be an instance member func as its task is to initialize the state of every individual object of class -> thus can't be shared amongst all objects
+- Types:
+1. Default 
+2. Parameterized 
+3. Copy
+
+Note:
+- By default the compiler provides a "default constructor"(one with no parameters and no body) to every class (but only if it does not find any custom implementation of any type of constructor whether def, para, copy)
+- Incase, any kind of custom implementation found whether its default or parameterized or copy-> compiler will stop providing its default one and we need to write custom implementation for all types of constructor
+
+- Note: Case of copy constructor is a bit diff here:
+-> Compiler provides a default copy constructor regardless of the fact whether we have the custom implementation for default constructor
+-> It stops providing the default copy constructor only and only when -> it does not find any "custom copy constructor implementation"
+-> Also when copy is made -> the compiler will not create any other constructor
+-> Also, sending an address of an object in copy constructor is very important coz-> if sent object as value -> this means its a copy of object and to create a copy of object again the same constructor wil be called -> leading to infinite loop this call by reference is needed here
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Destructors:
+
+Syntax:
+class Boy
+{
+public:
+    Constructor
+    Boy()
+    {
+
+    }
+
+    Destructor
+    ~Boy()
+    {
+
+    }
+
+};
+
+- Required to release all the resources associated with the object including those resources as well which are held using pointers !! 
+  So, its important to release those hold on resouces such as memory block before destroying the object
+- Alike Constructor -> Destructor also is a instance member function and cannot be static
+- It has no return type as well and doesn't take any aurgument thus we cannot overload it!!
+- For a statically created object-> Destructor is called implicitly but for a dynamically created object we need to explicitly invoke the destructor using delete keyword
+- It is invoked when an object is supposed to get destroyed
+- Constructor and Destructor both are instance member function 

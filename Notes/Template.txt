@@ -1,0 +1,68 @@
+Templates:
+
+Note: namespaces are just libraries of Cpp-> thus while using any functions from that lib -> we need to use the syntax
+using namespace <lib_name>;
+
+Ex: using namespace std;  -> std is a standard lib having functions like cin, cout etc.
+
+
+- Templates are used to generate generic datatypes
+- Keyword template is used to define class and function template
+- This template is used to generalize the functions and classes for datatypes on which they will operate
+
+//-----------------------------------
+
+Function Templates:
+Ex: If i have a class -> Circle
+    Now, I need a function to calculate its area but the radius can be any real value-> int or double 
+    here, i need to define two functions -> one accepting int radius and other for double wala radius 
+    This is an overhead -> thus i want to keep datatype as generic so that my class can have a generic func to cal area and user can pass any type of data to it!
+
+Syntax: 
+int largest(int a, int b)
+{
+    if( a>b )
+    return a;
+    else 
+    return b;
+}
+
+double largest(double a, double b)
+{
+    if( a>b )
+    return a;
+    else
+    return b;
+}
+
+//Instead of defining a separate function for each new datatype-> a generic function is defined which operates on any kind of data
+
+General Syntax:
+template <class type> type func_identifier(type arg1, type arg2)
+{
+    //....
+}
+
+template <class X> X largest(X a, X b)
+{
+    if(a>b)
+    return a;
+    else 
+    return b;
+}
+
+- here, X is a place holder such that if we pass int -> X=int or else if if double -> X=double
+- This substitution takes place while early binding-> and depends on which type of data we are passing while function call
+- Now, if i need to pass two diff datatypes -> use multiple placeholders
+
+Syntax:
+template <class X, class Y> X largest(X a, Y b)
+{
+    if(a>b)
+    return a;
+    else 
+    return b;
+}
+
+//------------------------------------
+

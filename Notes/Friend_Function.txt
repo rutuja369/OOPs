@@ -1,0 +1,30 @@
+Friend fucntion:
+TasK: Implement a generic friend func that can take obj of any class as arg
+Syntax:
+
+class Complex
+{
+private:
+    int a, b;
+public:
+    friend void external_entity(Complex obj);
+};
+void external_entity(Complex obj)
+{
+    cout<<obj.a<<obj.b<<endl;
+}
+
+- Its an external fucntion which gets the access of properties of a class (external means it can be an independently existing func or it can be a member func of some other class!!)
+- It might bring a risk of sharing private data to ext func but -> Its useful is some specific scenarios wherein giving access to an ext func is imp
+- Note: here as we are using an already implemented func so in class body only declaration as a friend fucn is expected that too anywhere in public or private or protected part 
+- Since-> it gets direct access to properties thus it doesn't need any caller object ( also its no a mem func so object cannot call it)
+- If we implement operator overloading as a member func -> caller obj ke alava ek aur obj was in need so we pass it as an param ( demonstrated in practical checkout )
+  But, if we implement it as a friend func -> then  all the required objects need to be passed as arg as now it cannot be treated as mem func of one
+- Advantages: 
+  It can be declared as a friend of multiple classes at a time (perk)
+
+NOTE: If we cannot use an object of a class directly -> use its reference -> has a wide application remember this...
+      If we need to give access to multiple mem functions of same class about the data of some other class -> its usually preferred to make entire class as an friend class !!
+      Ex: friend class B;
+      If the friend fun is a mem func of some other class -> use :: 
+      Ex: friend void A::func(); ->declaration in class B 

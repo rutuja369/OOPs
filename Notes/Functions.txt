@@ -1,0 +1,75 @@
+Functions:
+Advantages:
+1. Avoids code repetition
+2. Easy to use and modify and understand
+3. Easy to debug
+4. Better memory utilization
+
+1. Function declaration/prototype is necessary-> to be done before use->  to indicate the existance of definition in further scope
+2. They can be declared locally or globally-> a func declared globally can be accessed by any other function from progran-> whereas other declared locally-> can be called only by that specific function
+3. Actual args and formal args
+4. formal args types: Ordinary variables, Pointer vars, reference vars
+5. Function Calls:-> Call by value, Call by address, Call by reference
+ 
+//-------------------------------------------------------------------------------------------------------
+
+Inline Function:
+
+Syntax:
+#include<bits/stdc++.h>
+using namespace std;
+inline void sum();  //Function made inline at the time of declaration only
+
+int main()
+{
+    sum();
+}
+
+void sum()
+{
+    ....
+}
+
+This concept is used to reduce the overhead of function calls made for small and frequently used functions 
+Inline function is a function that is expanded in line when invoked
+Means, compiler replaces the function call with entire function definition->>> so that every time wherever the function is supposed to be invoked it actually executes the entire code present inline avoiding the overhead of function call-> arg passing-> then executing ...
+Note: 
+- Inline is a request not a command-> means we are just suggesting compiler --> if possible make it inline 
+- Its not necessary ki inline likh diya aur inline bann gaya
+- Very imp -> avoid making those functions inline which contain-> Functions with loops, recursive functions and those containing static variables(coz these )
+- Function is made inline during -> function declaration itself
+
+//-------------------------------------------------------------------------------------------------------------------------------
+
+
+Function Overloading-> Polymorphism
+
+In short Polymorphism->
+- It is one of the object oriented principle-> which means multiple forms of a single entity ( ek hi cheej ke multiple interpretations hona and her interpretation ko alag alag context me use karna)
+- Polymorphism : Two types 
+1. Compile Time Polymorphism: ( FUnction and Operator Overloading)
+2. Runtime Polymorphism: (Virtual Functions)
+
+Function Overloading: 
+- Same function is used to perform different tasks and for a specific func call -> which version amongst all those functions must be used is decided at comiple time
+- By same function what i mean is -> there must be some diff in argument list of the function -> means datatype of atleast one arg must be diff or no. of args must be diff amongst all the functions
+- If only arg list is rearranged or return type of func is changes-> compiler gives error of redeclaration
+- Coz, compiler distinguishes using arg list so the func calls must interpret the difference
+
+NOTE:
+Steps how Function Overloading is resolved:
+- Here compiler has a special task of checking -> the function call and binding it with its correct definition 
+  AND since it can take this decision at compile time itself by looking at the arg list in func call -> this binding is called early binding and type is called comiple time Polymorphism
+1. Compiler first goes through the function and checks how many functions of same name exist
+2. Next it uses 3 way rule to resolve Overloading:
+2.1 Tries finding exact match for the function call-> here actual arg must exactly match with parameter type of one of the overloaded function
+2.2 If no exact match found-> matching through promotion is done
+- char , unsigned char , short are promoted to int 
+- float is promoted to double 
+2.3 If no promotion is found-> standard conversion i.e type conversion (koi bhi datatype kisi bhi datatype me convert ho sakta hai)
+2.4 Else error
+
+Ex: A Function calculating area-> but application or figures are different (means general job must be same but application must vary)
+Conclusion: When One function name is overloaded with different jobs -> Its function Overloading 
+
+

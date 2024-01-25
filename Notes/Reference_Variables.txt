@@ -1,0 +1,20 @@
+Reference Variables:-> Internal Pointer !!!!!!
+
+//reference var apne jivan me kisi ek hi var ke memory address ko point kar sakta hai 
+//Unlike ptr var which can change the address that it holds -> anytime in its life
+syntax:
+int a= 10;
+int &ref_var = a;
+int &ref_var= 18;-> not allowed must be initialized with already existing variable only -> constants not allowed
+
+
+1. Note here we have used "&" sign while creating a variable so its no an address of operator as in case of ptr variable
+2. This sign just give indication to compiler that-> its a ref variable
+3. Rules are -> it must be initialized while creation itself and cannot be reinitalized further
+4. Meaning-> once started pointing to a variable -> we cannot ask this ref_var to point to some other var in future
+5. Its basically-> "a modern type of internal pointer"
+6. Note : In simple terms consider this ref_var as another alias name for a 
+7. Huge diff between behaviour of a ptr_var and a ref_var:
+
+ptr_var++ -> gives address of next memory location of same type as of curr ptr
+ref_var++ -> actually increments the value of var which it is pointing to

@@ -1,0 +1,34 @@
+Pointers:
+
+this pointer:
+
+- used to refer caller object in instance mem functions
+- this is a "local object ptr" used in instance member functions -> which points to the caller object
+Ex: this->size; (caller object trying to access the size property associated with itself using this pointer )
+-this pointer cannot be modified its a static pointer
+- its useful in scenarios like this:
+
+Ex:
+class Volume
+{
+int l, b, h;
+public:
+
+    void setData(int l, int b, int h)
+    {
+        this->l= l;
+        this->b= b;
+        this->c= c;
+    }
+};
+- In the above scenario if the local parameters had names as x, y, z and we try assigning them to l,b,h then
+- As the func couldn't find l,b,h in its local mem-> it will search in outer scope of the func and eventually find l,b,h;
+- But, when both are same->it will give priority to local var only thus
+  l=l;
+  b=b;
+  c=c;
+has no significance both will be considered as local variables l, b, h only 
+
+Conclusion: in such scenarios-> using this->l we can justofy that this l is associated with the calling obj and not the local var of func
+
+

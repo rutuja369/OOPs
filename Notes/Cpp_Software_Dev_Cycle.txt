@@ -1,0 +1,21 @@
+Software development cycle with Cpp
+
+1. Inorder to generate a Software-> we need to write the program in such a way which is machine understandable
+2. But, converting a program into machine understandable langauge is not convenient 
+3. This is coz-> a system can have various OS: linux, mac, windows and the machine understandable file format for every OS is diff
+   Ex: Linux -> .out, Windows-> .exe etc
+4. Thus, learning every format based on underlying OS is very hard and thus we use -> high level languages such as Cpp
+5. Cpp a programming langauge-> its format is not OS dependent -> its syntax remains universally same -> rather than depending on some OS
+6. We command our OS using instructions written in Cpp
+7. Now, flow of converting the program into machine understandable format and executing it is as follows:
+-> Program undergoes through a software called-> "Preprocessor"
+-> Preprocessor maps the header files with actual content of the file -> Every header file is replaced with its inbuilt functions and methodologies-> and a new file with .i extension is created which has no header files as such and its actually not stored anywhere its directed created in RAM and exe there itself
+-> This .i file goes through a new software called-> "Compiler"
+-> Compiler compiles the cpp code into machine understandable langauge and -> generates a .obj  file 
+-> Next, even after this step -> there can be some methods that are not machine understandable and are internally implemented in library files
+-> Thus the .obj file goes through another software called-> "Linker"
+-> Linker links these methods with library files -> and forms a new file .exe
+-> Finally, .exe is the file containing our specified instructions into complete machine understandable langauge and is executed in ram
+-> Now, system intentionally avoids linking some methods with their library file content at compile time and this task is actually done at run time
+-> Here a new component called-> "Loader" is used 
+-> Loader loads the library file content for some remaining methodologies at run time and forms .exe file

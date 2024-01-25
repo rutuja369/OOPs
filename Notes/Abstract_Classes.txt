@@ -1,0 +1,43 @@
+Abstract Classes and Pure Virtual Functions:
+
+# Do Nothing Function:
+Syntax:
+void fun() = 0; 
+- A function with no definition is do nothing function
+
+# Pure virtual function:
+Syntax:
+virtual void fun() =0;
+- A do nothing function when declared as virtual its called -> Pure virtual function
+
+# Abstract Classes:
+Syntax:
+class Person
+{
+public:
+    virtual void func() =0;
+};
+
+- A class with "atleast" one pure virtual function is an abstract class
+NOTE: In java mentioning with keyword "abstract" before a class -> makes it virtual 
+      In Cpp need to create a class with atleast one pure virtual func -> this makes it abstract
+- Also, we cannot instantiate these abstract classes means cannot create object of this class
+- These classes are meant to just define a set of functions that can be extended by its child class and helps in generalization in project
+
+# Reason why can't we create an object of abstract classes:
+- If object is created -> obj will try to exe this do nothing func and -> since the func has no definition -> its invalid to call this func 
+- To solve this -> we avoid creation of object itself for such classes-> thus cannot instantiate abstract class
+# Again why need of pure virtual func:
+- Abstract class can have child classes and objects of those child classes can easily inherit this do nothing func and try executing it -> to avoid this we declare the do nothing func as virtual -> thus making it pure virtual function
+- Now, since declared as virtual -> LB takes place and thus we can bind the vtable with extended version present in child classes -> thus way we can avoid from exe te pure virtual func in any case
+
+
+-NOTE: Also, the next rule is whatever descendents the Abstract class has -> they are bound to extend the implementation of these pure virtual functions or else the child classes will also become abstract classes
+
+
+# Need for Abstract classes:
+- Abstract classes are used for generalization in real life projects where we are supposed to generate a parent class for holding all the common functionalities of child classes and do not want that it must have its own object
+EX:    Person
+      /      \   
+Student        Faculty
+(here no need of person object existance as it will remain unclear whether its a Student or a Faculty but Person class is useful as we can define all the common methods in it such as name, email, address, DOB etc etc)

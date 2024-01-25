@@ -1,0 +1,84 @@
+Header files and their use:
+- Header files are included to make the compiler aware about the actual meaning of any component that we use in our program
+Ex: #include<stdio.h>
+- This is a header file that contains the declaration of printf function
+- So, whenever compiler encounters printf word -> it will always be aware of what it is as it can find the declaration in included header 
+- whenever you include a specific header file -> the content (all lines) of that header file also become a part of that program
+- Very important:
+A Myth: "Header files include definitions or implementation of certain components
+
+- This is not true,
+ Header files: Include only declaration of identifiers just a prototype kind of
+ Library files: Actually include the complete definition of these identifiers
+
+
+Namespaces:
+- How are Namespaces connected with header files 
+- Actually, Namespaces are nothing but collections of identifier-declarations
+- A header file contains declarations in grps -> and that grps are called "Namespaces"
+Syntax:
+   namespace Myspace //name of a namespace {
+        //...
+   }
+Note: 
+1. Syntax same as class but no ';' after closing brace and thus we also cannot create any instance of it 
+
+2. namespace definition must be done globally or nested in some other namespace -> never is a namespace defined inside a function -> its always either globallu declared or nested inside another namespace
+(Whereas in case of classes or structures -> they can be defined inside a function or globally -> and accordingly the scope of use changes as local or global )
+
+3. also we can use a alias name for our namespace ex: namespace ms= MySpace;
+
+4. we can also create unnamed namespaces
+Syntax:
+namespace
+{
+
+}
+
+5. Imp Imp
+- A namespace definition can be continued and extended over multiple files -> note that they are not redefined or overriden when present in other files
+- So, here if the compiler finds two diff namespaces -> compiler will combine the two and and form a single scope of namespace 
+( Matlab -> if we create a namespace using the name of an already existing namespace in some other file -> then compiler will not consider it as diff and append your additions in the same single namespace)
+- So, finally -> ek ki scope banega uss namespace ka jaha -> all the declarations will be dumped.
+
+
+- So, why do we need them? coz without them also previously declarations were included in a header file
+- Basically, namespaces are very useful to avoid collisions if two header files included ina program have declaration of same var or func -> so this will create an ambiguity -> to avoid it namespaces are useful
+- Now, collisions can be avoided easily as even if declarations are common in two header files -> yet they are in two diff namespaces!
+
+- Technically , Namespaces are containers of identifiers
+- Namespaces put the name of its members in a separate distinct space so that they dont conflict with the names in other namespaces or global namespace.
+
+
+The Keyword "using":
+- using Keyword allows you to include/import entire namespace into your program with the global scope 
+- so basically -> it can be used to import one namespace into another namespace or program as well
+Syntax:
+
+file1.h:contents... (contains a namespace)
+
+namespace Myspace{
+    int a , b;
+    class A {
+        //...
+    };
+}
+
+Now using this namespace in some other program and extending it
+file2.h: contents...
+
+//Firstly include that file from which namespace is to be imported
+#include<file1.h>
+
+namespace MyNewSpace
+{
+    using namespace Myspace;
+    int x, y;
+    //extending the previous contents inside the new namespace 
+    A obj;
+    obj.func1();
+    //....
+}
+Note: Very imp
+- There is a diff between -> extending the same namespace in other program and extending a namespace in completely new namespace
+- In case 2 -> using Keyword is imp 

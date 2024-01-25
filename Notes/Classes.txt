@@ -1,0 +1,38 @@
+Classes
+
+
+- Note key difference between structures and classes are only major two:
+1. By default -> everythinh is public in structures whereas -> its by default private in classes
+2. By default 0> inheritance in structures is public whereas -> its by default private in classes
+Conclusion: In structures everything is by default public (open to all less security) and in classes security is enhanced by default everything is private whether it is inheritance or default visibility
+
+
+Note:
+-> Whenever we try using basic operations such as +, -, *, /-> on custom variables or objects compiler throws an error
+This is because compiler has in built functions to use + operator when both of its components are one of the primitive datatypes like int, float etc.
+But, if we assign any object as such on either side of + opr -> compiler doesn't have any inbuilt implimentation for such an operation so to avoid error we need to define our own custom implementation of such an functions
+Such functions are defined as member functions of the object class which gives them direct access to properties of the object
+Ex: Complex c1, c2, c3;
+c3= c1+c2;  
+
+Terminologies in OOPS:
+
+Class: Its a blueprint/template for an object where all the properties and behaviours of an object are stored
+
+Object: Its an instance of a class-> it has two components: properties/attributes + behaviours/methods/actions
+
+Member Functions: 
+- These are methods that define the behaviour of object
+- Of two types:
+1. Class member functions( these are common for all the objects and are associated with the class rather than any particular object-> ex: Static member func)
+2. Instance member functions (these are methods that serve the instance data members and for each instance these set diff values -> ex: set_data()-> sets diff data for each object)
+NOTE: similarly-> data members can also be of two types:
+- class data members(ex: static data members)-> associated with class means some global var shared amongst all objects
+- instance data members(ex: real , img)-> associated with each object -> means they hold diff value for each object
+
+State of an instance:
+State of an instance/object means the value of data members/ member variables associated with that object and this state must be changed only with the help of some set of member functions means outsiders must not be given direct access of modifying these crucial attributes   
+
+
+
+

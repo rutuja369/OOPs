@@ -1,0 +1,10 @@
+Type Conversion between two variables can be of 4 cases:
+- Primitive to Primitive : handled by compiler automatically -> float to int/ int to float 
+Note: rest below three need to be handled by user 
+
+- Primitive to Class type: int to complex -> solved using 'Constructor'
+- Class type to Primitive type: complex to int -> solved using 'Casting Operator'
+- Class type to Class type: complex to complex -> solved using ?
+
+
+Check out each one in programs!!!

@@ -1,0 +1,60 @@
+Operator overloading:- A way of implementing compile time polymorphism
+
+Task: Try to overload some unknown operators-> to analyse their properties
+
+Operators used for overloading: +, -, *, / , % etc...
+Operators not used for overloading: sizeof and tertiary operator ?: etc...
+
+Syntax:
+class Complex
+{
+public:
+  int a, b;
+  Complex operator + (Complex obj)
+  {
+     Complex temp;
+     temp.a= a+ obj.a;
+     temp.b= b+ obj.b;
+
+     return temp;
+  }
+};
+
+- When we implement a new definition of an existing operator or basically when an Operator is overloaded with multiple jobs-> it is known as operator overloading 
+- Operator overloading is a method through which we can implement add on implementation for existing operator Ex: + operator extended to perform addition of two user defined objects
+- Actually, For ex: "+" operator is used for addition on primitive datatypes coz c++ libraries have inbuilt implementations defined when both operands are of primitive datatypes 
+  but, when it comes to using + on userdefined objects such as c1+c2 ( c1, c2 objects of type Complex class) then compiler doesn't know what it interprets thus we need to provide a custom implementation for it
+- Adding logic can be included using identifier as add or sum etc.
+
+# Then why operator overloading?
+-> When we are using an operator as identifier such as + then using operator keyword is compulsory
+Syntax: Complex operator +(Complex obj)
+        {
+            Complex temp;
+            temp.a= a+obj.a;
+            temp.b= b+obj.b;
+
+            return temp;
+        }
+Here, to use an operator like +/- (but only valid operators that are used in maths operations like +, -, *, / etc) (there's a huge list of operators that can be overloaded and that cannot be)
+as identifier for function needs us to use operator keyword (only add operator keyword before identifier)
+
+# How to call this fucntion?
+-> c3=c1.operator+(c2) :
+- while calling also i need to use the operator keyword
+- but it also has an shortcut: 
+  Cpp says that if the func identifier is an Operator we can skip usage of keyword "Operator" as well as "." -> member access operator 
+So, 
+c3= c1.operator+(c2) or c3= c1+c2 (both are same)
+
+Note: This way by defining that fucntion we have given an add on implementation for "+" operator with userdefined operands
+
+Note: its not like we need always binary operators or tertiary operators -> overloaded operators can be unary as well such as 
+      Ex: operator~() 
+      Also, caller object is at lefthand side always in case of binary operator
+
+Note: usage of operators is as it is based on the primary behaviour of that operator like 
+      c1=~c2; // means c1 stores negation of c2
+      c1= c2++; //for increment operator but caution its a post incr and not pre incr so c1 will store the same data as of c2 and then c2 values are incremented
+
+Note: We need to implement operator overloading in such a way that -> all features of that operator as it is can be used on user defined objects

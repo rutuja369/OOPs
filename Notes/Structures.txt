@@ -1,0 +1,51 @@
+
+
+Structures:
+- Used to form a collection of dissimilar datatypes/elements-> to bind them under one hood
+- It is used to form a custom datatype -> a way to grp elements/variables
+
+syntax:
+struct book
+{
+    int bookID;
+    char title[200];
+    float price;  
+}b1; //note we can create the objects in this manner also
+
+NOTE: Very imp
+Significant Differences in structures in C  and in Cpp
+
+            C                           |             Cpp
+1. need to use struct keyword for        |     no need to use struct keyword
+creating instance of any Structure      |
+2. structures in c cannot include       |     here we can include member functions 
+member functions -> only datatypes      |     as well
+3. It doesn't have supoort to access    |     It has access modifiers all 3 (pub, pri, pro)
+modifiers everything is public          |     but in structures in Cpp -> default everything is public -> need to make it private explicitly
+4. Also, inheritance and other object   |     Like classes All oo principles are supported by structures in CPP
+oriented principles are not supported   |
+Note:
+-How much memory will this defination hold?
+-> Here we have just defined a custom datatype book -> not created an instance of it yet so memory assigned is zero
+-> Ex: float -> its just a datatype whose meaning is known to compiler beforehand but its not allocated memory until we declare a variable of type float
+       float x -> is allocated mem of 4 bytes so mem is allocated to an instance of a datatype and not to actual definition of datatype
+       Thus, above is just a definition of book datatype -> it will be assigned a memory only when we create an instance of type book
+       struct book b1; -> b1 is assigned memory of 208 bytes
+-> Same as we declare variables locally and globally-> structures can also be declared locally or globally
+
+- How to init a struct var/instance during declaration itself?
+-> book b1= {101, "Secret", 300} ; //do maintain the order as it is
+
+- How to init after declaration?
+-> book b1;
+   b1.bookID =101;
+//Note: How to store an string in char array-> strcpy(char<array>, "string");
+
+this is wrong -> coz left hand holds title-> name of a char array and name indicates address of 1st element which is constant in nature so we can't assign a value to constant na 
+   b1.title="hello";  //wrong 
+   strcpy(b1.title, "hello");  //correct
+
+-How to make some data inaccessible to outsiders?
+-> Cpp structures have access modifiers: private,protected and public 
+-> But, note that by default everything is public in structures and in class its private by default
+-> So, structures in CPP have an add on advantage of not using struct, declaration of member functions and also have access modifiers for data security

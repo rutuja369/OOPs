@@ -1,0 +1,216 @@
+Method Overloading, Overriding and Hiding:
+
+Method Overloading:(all versions need to be in same class/scope)
+Method Overloading is a technique of defining multiple functions with same identifier but diff parameter list "within same class"
+It won't work for diff classes
+
+
+Syntax:
+class A
+{
+public: 
+    void func1(){};
+    void func2(){};
+};
+
+class B: public A
+{
+public:
+    void func1(){};
+    void func2(int x){};
+};
+
+int main()
+{
+    B obj;
+    obj.func1();
+    obj.func2();
+}
+
+Method Overriding:
+- This is useful when child class wants to extend an existing function of parent and have its own properties + old properties as well
+- Method Overriding is a concept where two functions with same prototype (means return type , identifier, parameter list everything same) 
+  are implemented in two diff classes where both have some relation in terms of inheritance (parent and child).
+- In above implementation, the compiler when checks obj is calling func1-> so to decide which func1 is to be called:
+1. checks the type of obj-> its B -> so checks in entire B class -> if found there -> exe it!
+2. Incase it doesn't find func1 in B then it goes and searches in the parent classes as well
+Note: But note that if found in B itself -> compiler never goes to parent class for checking func1 existance
+
+
+Method Hiding:( here always child version is only called)
+- Method hiding is a concept where parent and child class have two functions with same name but their prototype is different -> means change in parameter list
+- This way the child class has a complete new implementation of that func (which is not considered overrided) and thus when its obj calls that Method -> child class implementation is executed efficiently "hidding" the parent class one 
+- In above  implementation, compiler executes func2 of class B when called by its obj
+- Note: here since hiding the main class func2 is of major focus so if the obj of B even tries to invoke func2() with no parameter-> compiler gives error
+  coz when -> obj calls func2()-> obj checks the type of obj-> its B-> checks in entire B class-> finds func2() but its parameters don't match -> thus throws an error!!
+
+
+VERY VERY IMPORTANT:
+Conclusion: If the compiler finds any function with same identifier in child class itself -> it will never search in parent classes !!! even if parameter list doesn't match -> will throw and error -> but will never search in parent
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Virtual Functions: (Introduced to solve the problem of overriding)
+
+Background Knowledge:
+- Base class pointer -> it can point to object of any of its child and further descendent classes but converse is not true means child class ptr cannot never ever point to base class obj
+Conclusion: Base class(upar wala class)-> niche wale saare classes ke objects ko point kar sakta hai
+
+class Car
+{
+public: 
+    void shiftGear()
+    {
+        //...
+    }
+};
+
+class SportsCar
+{
+public:
+    void shiftGear()
+    {
+        //...
+    }
+};
+
+int main()
+{
+    Car car, *ptr;
+    SportsCar scar;
+    *ptr= &scar;
+
+    scar.shiftGear();       //1
+    ptr->shiftGear();       //2
+}
+
+- In above scenario we have a ptr of base class pointing to child class object so ideally when we wish to use the service shiftGear() we expect that ptr should call child class version coz -> obj is of child class
+- And ideally thats correct coz, in line 1-> when we use the obj of child class as discussed in overriding -> compiler checks for obj type and exe the method from that class only
+- Now, when ptr is used the issue is:
+  At compile time: 
+- Compiler cannot identify which object address is actually stored in ptr whether its of child or parent class at the compile time -> this is known at runtime 
+- Thus, at compile time compiler ends up checking the type of ptr (as we saw in case of obj invoking the method) so it finds that type is of parent class and thus ends up executing parent class version of shiftGear()
+- Now, if we observe this is ethically wrong -> as the obj scar has its own implementation of shiftGear() and thus expects to exe its own version as it may have some diff specialized attributes involved
+
+How to solve this::: -> Virtual functions to rescue
+-> Solution is to avoid this early binding by compiler and implement late binding (with the help of virtual functions)
+
+Modified:: 
+class Car
+{
+public: 
+    virtual void shiftGear()
+    {
+        //...
+    }
+};
+
+class SportsCar
+{
+public:
+    void shiftGear()
+    {
+        //...
+    }
+};
+
+int main()
+{
+    Car car, *ptr;
+    SportsCar scar;
+    *ptr= &scar;
+
+    scar.shiftGear();       //1
+    ptr->shiftGear();       //2
+}
+
+- Here, if we add a virtual keyword before the parent class version of intended function -> then at compile time the compiler can identify that this func exe is supposed to be decided at runtime and thus performs late binding
+- So, now when ptr-> shiftGear() is called -> child class version is only executed  
+
+
+//----------------------------------------------------------------------
+
+## Internal Working of Virtual Functions:
+
+class A
+{
+public:
+    *_vptr 
+    void f1() {...};
+    virtual void f2() {...};            
+    virtual void f3() {...};
+    virtual void f4() {...};
+};
+
+class B: public A
+{
+public:
+    void f1() {...};
+    void f2() {...};
+    void f4(int x) {...};
+};
+
+For a class that consists atleat one virtual function-> following things are done:
+
+- Step1: In above scenario for any xyz class which has atleast one virtual function-> the compiler creates a *_vptr ptr (always)-> how to verify it-> checkout the size of the obj 2 bytes extra mem is allocated for this ptr
+- Now, this ptr is common for this class and all its descendents (as they inherit it!!)
+- Step2: Compiler creates a static array -> "An array of ptrs of virtual functions"-> each ele stores address of "Virtual functions" of that class ->array referred as vtable
+  Note: This vtable is separately created for parent and child classes 
+
+So, now we have a *_vptr and vtable -> here *_vptr contains address of vtable (IMP)
+means-> if obj is of A-> vptr holds address of vtable of A 
+     -> if obj is of B-> vptr holds address of vtable of B 
+
+- So, for class A: vtable holds addresses of all virtual functions of A
+        vtable
+    f2    f3    f4
+- Similarly for class B: vtable holds addresses of its virtual functions 
+        vtable
+    f2    f3    f4  
+Note: here f2 -> holds address of child class version of f2 which is extended in B ( means if latest definition exists-> that address is stored and if not then child class version wale func ka address is stored)
+           f3 -> since f3 is not extended so nonew def found but still obj of B has access to that service coz f3 from A is inherited and thus address of parent class version A ka f3 is stored
+           f4 -> since f4 is also not extended (Note: the one which exists is not extended since it has a param so its func hiding not overriding) and thus here also A ka f4 ka address is stored 
+
+# Now lets see till this scenario what is the execution:
+
+Ex 1:
+void main()
+{
+    A *p, o1;
+    p= &o1;        
+    p->f1();  //f1() -> not a virtual fun thus EB -> so compiler checks type of ptr -> its A-> so A ka f1 exe hoga
+    p->f2();  //f2() -> virtual fun thus LB -> since LB so compiler checks what is the type of obj stored in p -> its o1 of type A so refers vtable of A -> so A ke vtable me A ke f2 ka hi address hai thus A ka f2 exe hoga
+    p->f3();  //f3() -> virtual fun thus LB -> same as f2
+    p->f4();  //f4() -> virtual fun thus LB  ->same as f2
+    //ERROR!!!
+    p->f4(5); //f4() -> doesn't exist in A but since its not a Virtual func -> so uski bhi EB _. here it will give error since its EB -> thus ptr ka type check karo -> its A and A has not such func -> thus error
+} 
+
+- here p is pointing to o1 obj of type A so it has vptr that points to vtable of A and thus p refers vtable of A 
+- p will exe which func to understand this we'll see konse func ka early binding hoga (EB) and konse ka late binding hoga (LB)
+- NOTE VIMP: So, this vtable is referred by compiler during LB and uss vtable me woh virtual func konsa hai usse exe karega
+
+
+Ex 2:
+void main()
+{
+    A *p;
+    B o2;
+    p= &o2;        
+    p->f1();  //f1() -> not a virtual fun thus EB -> so compiler checks type of ptr -> its A-> so A ka f1 exe hoga
+    p->f2();  //f2() -> virtual fun thus LB -> since LB so compiler checks what is the type of obj stored in p -> its o2 of type B so refers vtable of B -> so B ke vtable me B ka extended version of f2 ka address stored hai->thus B ka f2 exe hoga
+    p->f3();  //f3() -> virtual fun thus LB -> since LB again compiler checks type of obj stored in p-> its o2 of type B so refers B ka vtable -> so B me toh f3 ko extend nai kiya hai and we saw above that B ke vtable me A ke f3 ka address hai -> so A ka f3 exe hoga
+    p->f4();  //f4() -> virtual fun thus LB  ->same as f3
+    //ERROR!!!
+    p->f4(5); //f4() -> EB -> checks type of ptr p -> its type A -> goes in A -> checks for f4 with a param ->  it doesn't exist in A -> and thus here it will give error 
+} 
+
+- here p is pointing to o2 obj of type B so it has vptr that points to vtable of B and thus p refers vtable of B now 
+- So, yaha jo bhi execution hoga woh -> B ke vtable me addresses kaise aur kiske stored hai uss basis per hoga
+- Again p will exe which func to understand this we'll see konse func ka early binding hoga (EB) and konse ka late binding hoga (LB)
+- NOTE VIMP: So, this vtable is referred by compiler during LB and uss vtable me woh virtual func konsa hai usse exe karega
+- Now, 
+for f1 -> its a problem of overriding -> f1 ko B ne extend kiya tha still exe A ka hi hua coz since its not declared as virtual thus EB hogi and during EB compiler makes decision based on type of ptr and not the type of obj stored in it
+          thus-> Virtual functions solve such problems and force LB so that Compiler can examine actual type of obj stored in B 
+    

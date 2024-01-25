@@ -1,0 +1,153 @@
+Inheritance:
+
+Syntax:
+class A
+{
+    //...
+};
+
+class B: <visibility mode> A 
+{
+    //...
+};
+Note: visibility mode: public, private, protected
+
+- Its a proces of inheriting the properties and behaviour of one class into other class 
+- note: we can further extend the new class by defining its own set of data mem and mem func as well but it will also get access of some properties of base class
+- base class-> parent class
+- new class-> derived class
+- Types:
+  Single
+  multiple
+  multilevel
+  hierarchical
+  hybrid
+
+# What can be inherited?
+-> Only protected and public members can me inherited -> private members can never be inherited
+
+- Is-a relationship always implemented using public inheritance
+
+# Whats diff betwen availability and accessibility?
+-> when a class B is derived from class A-> all the data of class A is inherited and made "available" in B 
+   means, all public, protected and private data is available to class B
+   but, out of those only public and protected data is only accessible to class B
+   private data is just availabile not accessible!!!
+
+
+#Important Table
+                        Visibility Mode
+  Data        public       protected     private
+public    |   public       protected     private
+private   |   Not inhe.    Not inhe.     Not inhe.
+protected |   protected    protected     private
+
+
+
+# How are Constructors and Destructors called in case of Inheritance?
+-> 
+
+Constructors:
+- In case of inheritance whenever a child class Constructor is to be called -> its imp to call the parent class Constructor as well 
+  coz, the child class obj is associated with both its own and inherited properties thus initializing both of them is equally imp
+- Now, how is this done?
+
+Syntax:
+class A
+{
+public:
+  //A similar default Constructor is provided by compiler without any body
+  A()
+  { }
+};
+
+class B: public A
+{
+public:
+  B():A()
+  {
+
+  }
+};
+
+- This is how, even if we dont call the Constructor of parent class -> the compiler takes care of it thoroughly
+- Note: whenever a child class obj is created -> its Constructor is called but before executing the child Constructor-> a call goes to parent class Constructor and it is executed first
+- Thus, calling-> first child and then parent but executing-> first parent then child
+- This, calling is done as mentioned in above Syntax -> by default the compiler calls a default Constructor of parent class-> before executing the body of child Constructor
+
+Conclusion: Order of execution of Constructors in inheritance is -> Parent to child
+
+# How to call a parameterized Constructor of parent class?
+->
+As we saw, compiler by default calls a default Constructor of parent class 
+But, what if i want to call a parameterized one -> in this case the user needs to do this task explicitly
+
+Syntax:
+class A
+{
+  int a;
+public:
+  //A similar default Constructor is provided by compiler without any body
+  A()
+  { }
+  A(int x)
+  { a=x;}
+};
+
+class B: public A
+{
+public:
+  B():A(x)
+  {
+
+  }
+};
+
+- Thus, we can pass the list of all the parent Constructors by adding a semicolon to child class Constructor and pass on the args
+- Note: What if there are multiple such parent Constructors
+Ex: B(): A(x), D(y), C(z)
+    {
+
+    }
+Order of execution of Constructors: A-> D->C then B
+- In this case, the order of execution is as per the order written -> first A, D, C then B   
+Note: It has an exception: Incase in this order if we have any virtual base class -> then that class is given 1st priority
+Ex: B(): A(x), virtual D(y), C(z)
+    {
+
+    }
+Order of execution of Constructors: D-> A->C then B
+
+//--------------------------------------------------------------------
+
+Destructors:
+- Incase of Destructors -> sequence is opposite
+- here, the parent class Destructor is called inside the body of child class Destructor -> after its complete execution 
+
+Syntax:
+class A
+{
+  int a;
+public:
+  //A similar default Constructor is provided by compiler without any body
+  A()
+  { }
+  A(int x)
+  { a=x;}
+
+  ~A()
+  { }
+};
+
+class B: public A
+{
+public:
+  B():A(x)
+  {
+
+  }
+  ~B()
+  { }
+};
+
+Order of execution of Destructor: B-> then A

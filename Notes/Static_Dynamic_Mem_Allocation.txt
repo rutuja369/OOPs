@@ -1,0 +1,36 @@
+Static and Dynamic Memory Allocation:
+
+# Objects or any variable can be allocated memory in two ways:
+- Static
+- Dynamic
+
+1. Static or Compile time memory Allocation
+- Don't go with the name -> it doesn't mean that the memory is allocated at compile time
+- Memory is allocated at runtime only but, here the decision of how much memory is to be allocated is done at compile time
+- variables allocated memory statically have everything fized at compile time itself
+  such as: Memory size, its life(scope), when to destroy etc..
+  Ex: a var declared in a func -> has its scope till the termination of func -> once func terminated -> var destroyed
+
+2. Dynamic or Runtime memory Allocation
+- useful when we are not aware about actual memory to be allocated or its a user input
+- variables allocated memory Dynamically have their scope till entire program -> means destroyed only when program terminates -> if wish to destroy earlier -> use delete keyword to do this explicitly
+  Ex: -> creating an array of size n-> n is userdefined 
+- In Cpp-> this Dynamic allocated is done using "new" keyword 
+Ex: 
+int * ptr = new int ;
+float * ptr = new float ;
+Complex * ptr = new Complex ;
+int *arr = new int[10] ;
+
+new and delete keywords:
+
+1. new: 
+- used to Dynamic mem Allocation
+2. delete:
+- used to delete the Dynamic mem allocated using new keyword
+Ex: delete p;
+    delete []p;
+
+delete vs free:
+1. delete-> used to release mem allocated using new keyword
+2. free-> used to deallocate mem allocated using malloc
