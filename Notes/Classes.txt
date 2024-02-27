@@ -2,7 +2,7 @@ Classes
 
 
 - Note key difference between structures and classes are only major two:
-1. By default -> everythinh is public in structures whereas -> its by default private in classes
+1. By default -> everything is public in structures whereas -> its by default private in classes
 2. By default 0> inheritance in structures is public whereas -> its by default private in classes
 Conclusion: In structures everything is by default public (open to all less security) and in classes security is enhanced by default everything is private whether it is inheritance or default visibility
 
